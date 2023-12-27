@@ -1,6 +1,6 @@
-(ns core-test
+(ns main-test
   (:require
-   [core :as sut]
+   [main :as sut]
    [clojure.test :refer [deftest is testing]]))
 
 (deftest hello-world-test

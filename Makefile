@@ -21,3 +21,7 @@ style-check:
 .PHONY: style-fix
 style-fix:
 	clojure -M:tests:style fix
+
+.PHONY: build
+build:
+	clojure -T:build uber

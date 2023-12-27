@@ -1,5 +1,5 @@
 {:resources
- ["src"]
+ ["src" "resources"]
 
  :deps
  {clojure.java-time/clojure.java-time {:mvn/version "1.1.0"}
@@ -47,4 +47,8 @@
   {:extra-deps {lambdaisland/kaocha {:mvn/version "1.87.1366"}
                 lambdaisland/kaocha-cloverage {:mvn/version "1.1.89"}}
    :main-opts ["-m" "kaocha.runner"
-               "--plugin" "cloverage"]}}}
+               "--plugin" "cloverage"]}
+  
+  :build
+  {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}}
+           :ns-default build}}}
