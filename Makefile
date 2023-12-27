@@ -22,6 +22,22 @@ style-check:
 style-fix:
 	clojure -M:tests:style fix
 
-.PHONY: build
-build:
+.PHONY: build-uberjar
+build-uberjar:
 	clojure -T:build uber
+
+.PHONY: run-uberjar
+run-uberjar:
+	java -jar target/cljamp.jar
+
+.PHONY: build-docker
+build-docker:
+	docker build . -t cljamp
+
+.PHONY: run-docker
+run-docker:
+	docker run -p 3000:3000 --name cljamp -d cljamp
+
+.PHONY: run
+run:
+	clj -X main/-main

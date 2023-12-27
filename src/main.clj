@@ -12,7 +12,7 @@
    :body    "hello HTTP!"})
 
 (defn run []
-  (hk-server/run-server app {:port 8888}))
+  (hk-server/run-server app {:port 3000}))
 
 (defn -main [& _args]
   (run))
