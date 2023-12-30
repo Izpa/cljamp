@@ -1,10 +1,14 @@
 .PHONY: unit-test
 unit-test:
-	clojure -M:run-test:unit-test-path unit-test
+	clojure -M:run-test:unit-test unit-test
 
 .PHONY: integration-test
 integration-test:
-	clojure -M:run-test:integration-test-path integration
+	clojure -M:run-test:integration-test integration
+
+.PHONY: e2e-test
+e2e-test:
+	clojure -M:run-test:e2e-test e2e
 
 .PHONY: kibit
 kibit:

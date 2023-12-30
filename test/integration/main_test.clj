@@ -7,7 +7,7 @@
 (use-fixtures :once with-web-server)
 
 (deftest web-server-test
-  (testing "Web server response"
+  (testing "Check web server response"
     (let [{:keys [status body error] :as _resp} @(http/get "http://localhost:3000")]
       (is (= 200 status))
       (is (= "hello HTTP!" body))

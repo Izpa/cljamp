@@ -50,11 +50,15 @@
    :main-opts ["-m" "kaocha.runner"
                "--plugin" "cloverage"]}
 
-  :unit-test-path
+  :unit-test
   {:extra-paths ["test/unit" "test/common"]}
 
-  :integration-test-path
+  :integration-test
   {:extra-paths ["test/integration" "test/common"]}
+
+  :e2e-test
+  {:extra-paths ["test/e2e" "test/common"]
+   :extra-deps {etaoin/etaoin {:mvn/version "1.0.40"}}}
   
   :build
   {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}}
