@@ -11,8 +11,17 @@
    :headers {"Content-Type" "text/html"}
    :body    "hello HTTP!"})
 
-(defn run []
-  (hk-server/run-server app {:port 3000}))
+(defonce server (atom nil))
+
+(defn stop-server []
+  (when-not (nil? @server)
+    ;; graceful shutdown: wait 100ms for existing requests to be finished
+    ;; :timeout is optional, when no timeout, stop immediately
+    (@server :timeout 100)
+    (reset! server nil)))
+
+(defn run-server []
+  (reset! server (hk-server/run-server #'app {:port 3000})))
 
 (defn -main [& _args]
-  (run))
+  (run-server))

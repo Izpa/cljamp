@@ -1,26 +1,30 @@
 .PHONY: unit-test
 unit-test:
-	clojure -M:tests:unit-test
+	clojure -M:run-test:unit-test-path unit-test
+
+.PHONY: integration-test
+integration-test:
+	clojure -M:run-test:integration-test-path integration
 
 .PHONY: kibit
 kibit:
-	clojure -M:tests:kibit src
+	clojure -M:test-paths:kibit src
 
 .PHONY: kondo
 kondo:
-	clojure -M:tests:kondo --lint src --paralell
+	clojure -M:test-paths:kondo --lint src --paralell
 
 .PHONY: eastwood
 eastwood:
-	clojure -M:tests:eastwood
+	clojure -M:test-paths:eastwood
 
 .PHONY: style-check
 style-check:
-	clojure -M:tests:style check
+	clojure -M:test-paths:style check
 
 .PHONY: style-fix
 style-fix:
-	clojure -M:tests:style fix
+	clojure -M:test-paths:style fix
 
 .PHONY: build-uberjar
 build-uberjar:
