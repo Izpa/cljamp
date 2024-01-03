@@ -46,6 +46,6 @@ build-docker:
 run-docker:
 	docker run -p 3000:3000 --name cljamp -d cljamp
 
-.PHONY: run
-run:
-	clj -X main/-main
+.PHONY: run-dev
+run-dev:
+	clj -A:dev:test-paths -X user/main

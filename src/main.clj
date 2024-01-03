@@ -1,27 +1,15 @@
 (ns main
-  (:require [org.httpkit.server :as hk-server])
-  (:gen-class))
+  (:gen-class)
+  (:require view.todo-list ; main only (app is not loaded by shadow in main)
+            clojure.string
+            server))
 
-(defn hello-world
-  []
-  "Hello world!")
+(def electric-server-config
+  {:host "0.0.0.0", :port 8080, :resources-path "public"})
 
-(defn app [_req]
-  {:status  200
-   :headers {"Content-Type" "text/html"}
-   :body    "hello HTTP!"})
+(defn -main [& _args] ; run with `clj -M -m main`
+  (when (clojure.string/blank? (System/getProperty "HYPERFIDDLE_ELECTRIC_SERVER_VERSION"))
+    (throw (ex-info "HYPERFIDDLE_ELECTRIC_SERVER_VERSION jvm property must be set in main" {})))
+  (server/start-server! electric-server-config))
 
-(defonce server (atom nil))
-
-(defn stop-server []
-  (when-not (nil? @server)
-    ;; graceful shutdown: wait 100ms for existing requests to be finished
-    ;; :timeout is optional, when no timeout, stop immediately
-    (@server :timeout 100)
-    (reset! server nil)))
-
-(defn run-server []
-  (reset! server (hk-server/run-server #'app {:port 3000})))
-
-(defn -main [& _args]
-  (run-server))
+; On CLJS side we reuse src/user.cljs for main entrypoint
