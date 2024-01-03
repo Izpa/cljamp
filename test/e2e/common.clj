@@ -15,19 +15,10 @@
 (defn get-severe-logs []
   (filter (comp #{:severe} :level) (eapi/get-logs *driver*)))
 
-(defn read-toast []
-  (eapi/wait-visible *driver*
-                     {:data-ci "toast-message"}
-                     {:message "Unable to read toast message"})
-  (eapi/get-element-text *driver* {:data-ci "toast-message"}))
-
 (defn get-toast []
   (eapi/with-http-error
     {:status (eapi/get-element-attr *driver* {:data-ci "toast-container"} "status")
      :message (eapi/get-element-text *driver* {:data-ci "toast-message"})}))
-
-(defn close-toast []
-  (eapi/click-visible *driver* {:data-ci "close-toast"}))
 
 (defn driver-live? []
   (boolean (:type *driver*)))

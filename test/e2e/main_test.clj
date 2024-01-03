@@ -10,4 +10,5 @@
 (deftest main-page-test
   (c/testing "Check content on main page"
     (e/go c/*driver* "http://localhost:8080")
-    (is (e/wait-has-text c/*driver* "minimal todo list"))))
+    (e/wait 1)
+    (is (e/has-text? c/*driver* "minimal todo list"))))

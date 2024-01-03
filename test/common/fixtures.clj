@@ -6,7 +6,7 @@
 (defn with-web-server
   [f]
   (time
-   (let [server (start! nil)]
+   (let [server (start! {})]
      (log/debug "Time of running all tests per fixture:")
      (time (f))
      (.stop server)
