@@ -13,6 +13,7 @@
   (@shadow-start!) ; serves index.html as well
   (@shadow-watch :dev) ; depends on shadow server
   ; Shadow loads view.todo-list here, such that it shares memory with server. 
+  #_{:clj-kondo/ignore [:inline-def]}
   (def server (@start-electric-server! electric-server-config))
   (comment (.stop server)))
 
@@ -21,7 +22,9 @@
 
 (comment
   (main) ; Electric Clojure(JVM) REPL entrypoint
+  #_{:clj-kondo/ignore [:unresolved-namespace]}
   (hyperfiddle.rcf/enable!) ; turn on RCF after all transitive deps have loaded
+  #_{:clj-kondo/ignore [:unresolved-namespace]}
   (shadow.cljs.devtools.api/repl :dev) ; shadow server hosts the cljs repl
   ; connect a second REPL instance to it
   ; (DO NOT REUSE JVM REPL it will fail weirdly)

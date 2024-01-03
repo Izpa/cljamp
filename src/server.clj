@@ -2,7 +2,6 @@
   "preferred entrypoint (cleaner middleware for integration) but no java 8 compat"
   (:require [clojure.java.io :as io]
             [hyperfiddle.electric-jetty-adapter :as adapter]
-            [clojure.tools.logging :as log]
             [ring.adapter.jetty9 :as ring]
             [ring.middleware.basic-authentication :as auth]
             [ring.middleware.content-type :refer [wrap-content-type]]
@@ -13,7 +12,6 @@
             [clojure.string :as str]
             [clojure.edn :as edn])
   (:import [java.io IOException]
-           [java.net BindException]
            [org.eclipse.jetty.server.handler.gzip GzipHandler]))
 
 (defn authenticate [username _password] username) ; demo (accept-all) authentication
@@ -123,7 +121,7 @@
                  (.setMinGzipSize 1024)
                  (.setHandler (.getHandler server)))))
 
-(defn start-server! [{:keys [port resources-path manifest-path]
+(defn start! [{:keys [port resources-path manifest-path]
                       :or   {port            8080
                              resources-path "public"
                              manifest-path  "public/js/manifest.edn"}
@@ -139,7 +137,4 @@
       server)
 
     (catch IOException err
-      (if (instance? BindException (ex-cause err))  ; port is already taken, retry with another one
-        (do (log/warn "Port" port "was not available, retrying with" (inc port))
-            (start-server! (update config :port inc)))
-        (throw err)))))
+      (throw err))))

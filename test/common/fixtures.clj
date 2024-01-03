@@ -1,14 +1,13 @@
 (ns fixtures
   (:require
-   [main :refer [run-server stop-server]]
+   [server :refer [start!]]
    [taoensso.timbre :as log]))
 
 (defn with-web-server
   [f]
   (time
-   (do
-     (run-server)
+   (let [server (start! nil)]
      (log/debug "Time of running all tests per fixture:")
      (time (f))
-     (stop-server)
+     (.stop server)
      (log/debug "Total time of running tests + system up/down:"))))

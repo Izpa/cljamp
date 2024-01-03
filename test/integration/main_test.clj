@@ -8,7 +8,6 @@
 
 (deftest web-server-test
   (testing "Check web server response"
-    (let [{:keys [status body error] :as _resp} (http/get "http://localhost:3000")]
+    (let [{:keys [status _body error] :as _resp} (http/get "http://localhost:8080")]
       (is (= 200 status))
-      (is (= "hello HTTP!" body))
       (is (= nil error)))))

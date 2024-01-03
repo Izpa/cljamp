@@ -10,6 +10,6 @@
 (defn -main [& _args] ; run with `clj -M -m main`
   (when (clojure.string/blank? (System/getProperty "HYPERFIDDLE_ELECTRIC_SERVER_VERSION"))
     (throw (ex-info "HYPERFIDDLE_ELECTRIC_SERVER_VERSION jvm property must be set in main" {})))
-  (server/start-server! electric-server-config))
+  (server/start! electric-server-config))
 
 ; On CLJS side we reuse src/user.cljs for main entrypoint
